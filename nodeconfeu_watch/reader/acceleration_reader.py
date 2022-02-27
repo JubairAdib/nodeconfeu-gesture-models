@@ -286,7 +286,7 @@ class AccelerationReader:
 
                     name_and_length, *values = map(str.strip, line.split(','))
                     yield (
-                        np.fromiter(map(int, values), dtype=np.float32).reshape(-1, 3),
+                        np.fromiter(map(int, values), dtype=np.float32).reshape(-1, 5),
                         np.asarray(self.classnames.index(name), dtype=np.int32)
                     )
 
@@ -308,10 +308,10 @@ class AccelerationReader:
         if self.input_shape == '2d':
             x_numpy = x_numpy[:, :, np.newaxis, :]
 
-        mask_numpy = x_numpy[..., 3]
+        mask_numpy = x_numpy[..., 5]
 
         if not self.mask_dimention:
-            x_numpy = x_numpy[..., 0:3]
+            x_numpy = x_numpy[..., 0:5]
 
         person_numpy = np.full(y_numpy.shape[0], person_index)
 
